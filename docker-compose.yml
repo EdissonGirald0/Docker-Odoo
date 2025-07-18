@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    networks:
+      - odoo-net
+
+  odoo:
+    build:
+      context: ./docker/16.0
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "8071:8071"
+      - "8072:8072"
+    environment:
+      - LANG=es_ES.UTF-8
+      - TZ=Europe/Madrid
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
+      - ./docker/16.0/odoo.conf:/etc/odoo/odoo.conf:ro
+    command: odoo --config=/etc/odoo/odoo.conf --dev=reload
+    user: odoo
+    networks:
+      - odoo-net
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:
+
+networks:
+  odoo-net:
+    driver: bridge
