@@ -1,5 +1,12 @@
 # Odoo Dockerizado
 
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Odoo](https://img.shields.io/badge/Odoo-16.0-purple?style=for-the-badge&logo=odoo&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
+![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
 Este proyecto permite levantar un entorno aislado de Odoo usando Docker y Docker Compose, ideal para pruebas y simulaciones de administración.
 
 ## Requisitos
@@ -33,14 +40,14 @@ El proyecto utiliza una arquitectura basada en contenedores Docker que se comuni
 ```mermaid
 flowchart TB
     subgraph Volúmenes["Volúmenes Persistentes"]
-        V1[("odoo-db-data")]
-        V2[("odoo-filestore")]
+        V1["odoo-db-data"]
+        V2["odoo-filestore"]
         V3["./addons"]
     end
     
     subgraph Contenedores["Servicios Docker"]
         direction LR
-        DB[(PostgreSQL)]
+        DB[PostgreSQL]
         INIT[Odoo Init]
         ODOO[Odoo Server]
     end
